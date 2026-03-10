@@ -44,4 +44,11 @@ class LoginSteps {
         }
         return this
     }
+
+    fun verifyNonExistentUserNameMessagePresent(): LoginSteps {
+        with(LoginPageMatchers) {
+            Assert.assertTrue(nonExistentUserNameMessage.isViewDisplayed())
+        }
+        return this
+    }
 }

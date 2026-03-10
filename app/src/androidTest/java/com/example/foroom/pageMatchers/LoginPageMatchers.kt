@@ -46,4 +46,9 @@ object LoginPageMatchers {
         withId(com.example.design_system.R.id.descriptionTextView),
         withText("პაროლი არასწორია"))
     }
+
+    val nonExistentUserNameMessage: Matcher<View> by lazy { Matchers.allOf(
+        withId(com.example.design_system.R.id.descriptionTextView),
+        withText("მომხმარებელი ვერ მოიძებნა"))
+    }
 }

@@ -13,4 +13,6 @@ object ProfilePageMatchers {
         withId(R.id.listItemTextView),
         withText("გამოსვლა"))
     }
+
+    val userImage: Matcher<View> by lazy { withId(R.id.userImageView) }
 }
