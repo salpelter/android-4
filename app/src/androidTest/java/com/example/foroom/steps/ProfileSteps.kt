@@ -1,8 +1,8 @@
 package com.example.foroom.steps
 
-import com.example.foroom.helper.isViewDisplayed
-import com.example.foroom.helper.tap
-import com.example.foroom.pageMatchers.ProfilePageMatchers
+import com.example.foroom.utils.isViewDisplayed
+import com.example.foroom.utils.tap
+import com.example.foroom.pages.ProfilePageMatchers
 
 class ProfileSteps {
     fun clickOnSignOutButton(): ProfileSteps {

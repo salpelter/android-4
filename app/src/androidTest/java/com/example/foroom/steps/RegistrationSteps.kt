@@ -1,11 +1,8 @@
 package com.example.foroom.steps
 
-import com.example.foroom.helper.tap
-import com.example.foroom.helper.typeText
-import com.example.foroom.pageMatchers.LoginPageMatchers
-import com.example.foroom.pageMatchers.LoginPageMatchers.passwordField
-import com.example.foroom.pageMatchers.LoginPageMatchers.userNameField
-import com.example.foroom.pageMatchers.RegistrationPageMatchers
+import com.example.foroom.utils.tap
+import com.example.foroom.utils.typeText
+import com.example.foroom.pages.RegistrationPageMatchers
 
 class RegistrationSteps {
     fun enterUserName (userName: String): RegistrationSteps {

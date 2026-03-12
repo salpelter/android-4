@@ -1,7 +1,7 @@
 package com.example.foroom.steps
 
-import com.example.foroom.helper.tap
-import com.example.foroom.pageMatchers.NavBarMatchers
+import com.example.foroom.utils.tap
+import com.example.foroom.pages.NavBarMatchers
 
 class NavBarSteps {
     fun clickOnProfileButton(): NavBarSteps {

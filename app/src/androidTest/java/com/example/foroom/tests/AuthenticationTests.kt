@@ -1,24 +1,25 @@
-package com.example.foroom
+package com.example.foroom.tests
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.foroom.data.Constants
 import com.example.foroom.presentation.ui.activity.ForoomActivity
 import com.example.foroom.presentation.ui.util.datastore.user.ForoomUserDataStore
-import com.example.shared.util.runtime.user_token.UserTokenRuntimeHolder
 import com.example.foroom.steps.CommonSteps
 import com.example.foroom.steps.LoginSteps
 import com.example.foroom.steps.NavBarSteps
 import com.example.foroom.steps.ProfileSteps
 import com.example.foroom.steps.RegistrationSteps
+import com.example.foroom.utils.RandomUsernameGenerator
+import com.example.foroom.utils.RandomUsernameGenerator.Companion.getRandomUsername
+import com.example.shared.util.runtime.user_token.UserTokenRuntimeHolder
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Before
 import org.junit.FixMethodOrder
-
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Rule
 import org.junit.runners.MethodSorters
 import org.koin.core.context.GlobalContext
 import kotlin.random.Random
@@ -158,10 +159,5 @@ class AuthenticationTests {
 
         profileSteps
             .clickOnSignOutButton()
-    }
-
-    private fun getRandomUsername(): String {
-        val username = "daniel" + Random.nextInt(1000).toString()
-        return username
     }
 }

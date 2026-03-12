@@ -1,12 +1,9 @@
 package com.example.foroom.steps
 
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions
-import androidx.test.espresso.matcher.ViewMatchers
-import com.example.foroom.helper.isViewDisplayed
-import com.example.foroom.helper.tap
-import com.example.foroom.helper.typeText
-import com.example.foroom.pageMatchers.LoginPageMatchers
+import com.example.foroom.utils.isViewDisplayed
+import com.example.foroom.utils.tap
+import com.example.foroom.utils.typeText
+import com.example.foroom.pages.LoginPageMatchers
 import org.junit.Assert
 
 class LoginSteps {
