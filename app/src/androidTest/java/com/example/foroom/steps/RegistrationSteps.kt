@@ -5,7 +5,7 @@ import com.example.foroom.utils.typeText
 import com.example.foroom.pages.RegistrationPageMatchers
 
 class RegistrationSteps {
-    fun enterUserName (userName: String): RegistrationSteps {
+    fun enterUserName(userName: String): RegistrationSteps {
         with(RegistrationPageMatchers) {
             userNameField.typeText(userName)
         }
@@ -26,7 +26,7 @@ class RegistrationSteps {
         return this
     }
 
-    fun clickOnRegistrationButton(): RegistrationSteps {
+    fun tapOnRegistrationButton(): RegistrationSteps {
         with(RegistrationPageMatchers) {
             registrationButton.tap()
         }

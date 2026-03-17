@@ -1,12 +1,21 @@
 package com.example.foroom.pages
 
 import android.view.View
+import androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import com.alternator.foroom.R
+import com.example.foroom.utils.isLastChildOf
 import org.hamcrest.Matcher
+import org.hamcrest.Matchers.allOf
+
+private val topFragmentScope: Matcher<View> = isLastChildOf(withId(R.id.fragmentContainerView))
+private val navBarScope: Matcher<View> = allOf(withId(R.id.navBar), isDescendantOfA(topFragmentScope))
 
 object NavBarMatchers {
-    val profileButton: Matcher<View> by lazy {
-        withId(R.id.homeNavigationProfile)
+    val profileButton: Matcher<View> by lazy { allOf(
+            withId(R.id.homeNavigationProfile),
+            isDescendantOfA(navBarScope),
+            isDisplayed())
     }
 }

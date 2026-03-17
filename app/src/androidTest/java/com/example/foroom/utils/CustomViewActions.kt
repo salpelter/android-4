@@ -68,11 +68,21 @@ fun Matcher<View>.typeText(text: String, timeOutIfNotExitInSec: Int = 3) {
  * Input Text on view
  */
 fun Matcher<View>.waitForViewVisible(timeOutIfNotExitInSec: Int) {
-    waitForView(first(this), timeOutIfNotExitInSec * 1000)
+    waitForView(this, timeOutIfNotExitInSec * 1000)
 }
 
-fun waitForView(first: Matcher<View>, i: Int) {
-
+fun waitForView(viewMatcher: Matcher<View>, timeoutMs: Int) {
+    val startTime = System.currentTimeMillis()
+    val endTime = startTime + timeoutMs
+    do {
+        try {
+            onView(viewMatcher).check(matches(isDisplayed()))
+            return
+        } catch (_: Exception) {
+            Thread.sleep(50)
+        }
+    } while (System.currentTimeMillis() < endTime)
+    throw TimeoutException("View not visible after ${timeoutMs}ms: $viewMatcher")
 }
 
 fun Matcher<View>.waitUntilInvisible(sec: Int): ViewAction {
