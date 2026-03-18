@@ -18,51 +18,7 @@ import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
 
 @RunWith(AndroidJUnit4::class)
-class ChangePasswordTest {
-    @get:Rule
-    val activity = ActivityScenarioRule(ForoomActivity::class.java)
-
-    val commonSteps = CommonSteps()
-    val registrationSteps = RegistrationSteps()
-    val loginSteps = LoginSteps()
-    val navBarSteps = NavBarSteps()
-    val profileSteps = ProfileSteps()
-    var username = ""
-
-    @Before
-    fun registerAndLogOut() {
-        if (navBarSteps.isNavBarVisible()) {
-            // in case already logged in for some reason
-            navBarSteps
-                .tapOnProfileButton()
-
-            profileSteps
-                .tapOnSignOutButton()
-        }
-
-        username = getRandomUsername()
-
-        loginSteps
-            .tapOnRegistrationButton()
-
-        registrationSteps
-            .enterUserName(username)
-            .enterPassword(PASSWORD)
-            .repeatPassword(PASSWORD)
-
-        commonSteps
-            .closeKeyboard()
-
-        registrationSteps
-            .tapOnRegistrationButton()
-
-        navBarSteps
-            .tapOnProfileButton()
-
-        profileSteps
-            .tapOnSignOutButton()
-    }
-
+class ChangePasswordTest : BaseTest() {
     @Test
     fun changePasswordScenario() {
         // log in

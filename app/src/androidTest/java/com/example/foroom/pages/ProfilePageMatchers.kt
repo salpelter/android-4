@@ -10,8 +10,13 @@ import com.alternator.foroom.R
 import com.example.foroom.utils.isLastChildOf
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
+import org.hamcrest.Matchers.anyOf
 
 private val changePasswordScope: Matcher<View> = hasDescendant(withId(R.id.passwordInput))
+private val changeLanguageScope: Matcher<View> = hasDescendant(anyOf(
+    withId(R.id.languageButtonEng),
+    withId(R.id.languageButtonGeo)))
+
 private val topFragmentScope: Matcher<View> = isLastChildOf(withId(R.id.fragmentContainerView))
 
 object ProfilePageMatchers {
@@ -30,6 +35,18 @@ object ProfilePageMatchers {
     val changePasswordButton: Matcher<View> by lazy { allOf(
         withId(R.id.changePasswordItem),
         isDescendantOfA(topFragmentScope),
+        isDisplayed())
+    }
+
+    val changeLanguageButton: Matcher<View> by lazy { allOf(
+        withId(R.id.changeLanguageItem),
+        isDescendantOfA(topFragmentScope),
+        isDisplayed())
+    }
+
+    val changeLanguageText: Matcher<View> by lazy { allOf(
+        withId(com.example.design_system.R.id.listItemTextView),
+        isDescendantOfA(changeLanguageButton),
         isDisplayed())
     }
 
@@ -52,6 +69,18 @@ object ProfilePageMatchers {
             isDescendantOfA(changePasswordScope),
             withText("დადასტურება"),
             isDisplayed())
+    }
+
+    val georgianLanguageButton: Matcher<View> by lazy { allOf(
+        withId(R.id.languageButtonGeo),
+        isDescendantOfA(changeLanguageScope),
+        isDisplayed())
+    }
+
+    val englishLanguageButton: Matcher<View> by lazy { allOf(
+        withId(R.id.languageButtonEng),
+        isDescendantOfA(changeLanguageScope),
+        isDisplayed())
     }
 
     val profileUserName: Matcher<View> by lazy { allOf(
