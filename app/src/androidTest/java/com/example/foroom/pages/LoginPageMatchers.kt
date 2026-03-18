@@ -10,33 +10,33 @@ import com.example.foroom.utils.isLastChildOf
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
 
-private val topFragmentScope: Matcher<View> = isLastChildOf(withId(R.id.fragmentContainerView))
+private val actualScope: Matcher<View> = isLastChildOf(withId(R.id.fragmentContainerView))
 
 object LoginPageMatchers {
     val userNameField: Matcher<View> by lazy { allOf(
             withId(com.example.design_system.R.id.inputEditText),
             isDescendantOfA(withId(R.id.userNameInput)),
-            isDescendantOfA(topFragmentScope),
+            isDescendantOfA(actualScope),
             isDisplayed())
     }
 
     val passwordField: Matcher<View> by lazy { allOf(
             withId(com.example.design_system.R.id.inputEditText),
             isDescendantOfA(withId(R.id.passwordInput)),
-            isDescendantOfA(topFragmentScope),
+            isDescendantOfA(actualScope),
             isDisplayed())
     }
 
     val logInButton: Matcher<View> by lazy { allOf(
             withId(R.id.logInButton),
-            isDescendantOfA(topFragmentScope),
+            isDescendantOfA(actualScope),
             withText("ავტორიზაცია"),
             isDisplayed())
     }
 
     val registrationButton: Matcher<View> by lazy { allOf(
             withId(R.id.signUpButton),
-            isDescendantOfA(topFragmentScope),
+            isDescendantOfA(actualScope),
             withText("რეგისტრაცია"),
             isDisplayed())
     }
@@ -44,7 +44,7 @@ object LoginPageMatchers {
     val invalidPasswordMessage: Matcher<View> by lazy { allOf(
         withId(com.example.design_system.R.id.descriptionTextView),
         isDescendantOfA(withId(R.id.passwordInput)),
-        isDescendantOfA(topFragmentScope),
+        isDescendantOfA(actualScope),
         withText("პაროლი არასწორია"),
         isDisplayed())
     }
@@ -52,7 +52,7 @@ object LoginPageMatchers {
     val nonExistentUserNameMessage: Matcher<View> by lazy { allOf(
         withId(com.example.design_system.R.id.descriptionTextView),
         isDescendantOfA(withId(R.id.userNameInput)),
-        isDescendantOfA(topFragmentScope),
+        isDescendantOfA(actualScope),
         withText("მომხმარებელი ვერ მოიძებნა"),
         isDisplayed())
     }

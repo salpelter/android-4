@@ -1,21 +1,9 @@
 package com.example.foroom.tests
 
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.foroom.data.Constants.PASSWORD
-import com.example.foroom.presentation.ui.activity.ForoomActivity
-import com.example.foroom.steps.CommonSteps
-import com.example.foroom.steps.LoginSteps
-import com.example.foroom.steps.NavBarSteps
-import com.example.foroom.steps.ProfileSteps
-import com.example.foroom.steps.RegistrationSteps
-import com.example.foroom.utils.RandomUsernameGenerator.Companion.getRandomUsername
-import org.junit.Before
-import org.junit.FixMethodOrder
-import org.junit.Rule
+import com.example.foroom.data.DataGenerator
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.MethodSorters
 
 @RunWith(AndroidJUnit4::class)
 class ChangePasswordTest : BaseTest() {
@@ -24,7 +12,7 @@ class ChangePasswordTest : BaseTest() {
         // log in
         loginSteps
             .enterUserName(username)
-            .enterPassword(PASSWORD)
+            .enterPassword(password)
 
         commonSteps
             .closeKeyboard()
@@ -37,10 +25,12 @@ class ChangePasswordTest : BaseTest() {
             .tapOnProfileButton()
 
         // change password
+        val newPassword = DataGenerator.getRandomPassword()
+
         profileSteps
             .tapOnChangePasswordButton()
-            .enterNewPassword(PASSWORD + PASSWORD)
-            .repeatNewPassword(PASSWORD + PASSWORD)
+            .enterNewPassword(newPassword)
+            .repeatNewPassword(newPassword)
 
         commonSteps
             .closeKeyboard()
@@ -51,7 +41,7 @@ class ChangePasswordTest : BaseTest() {
         // check if login with new password successful
         loginSteps
             .enterUserName(username)
-            .enterPassword(PASSWORD + PASSWORD)
+            .enterPassword(newPassword)
 
         commonSteps
             .closeKeyboard()

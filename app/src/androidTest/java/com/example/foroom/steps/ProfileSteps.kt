@@ -16,13 +16,6 @@ class ProfileSteps {
         return this
     }
 
-    fun verifyUserImageVisibility(): ProfileSteps {
-        with(ProfilePageMatchers) {
-            userImage.isViewDisplayed()
-        }
-        return this
-    }
-
     fun tapOnChangePasswordButton(): ProfileSteps {
         with(ProfilePageMatchers) {
             changePasswordButton.tap()

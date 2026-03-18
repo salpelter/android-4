@@ -12,6 +12,13 @@ class NavBarSteps {
         return this
     }
 
+    fun tapOnCreateChatButton(): NavBarSteps {
+        with(NavBarMatchers) {
+            createChatButton.tap()
+        }
+        return this
+    }
+
     fun isNavBarVisible(): Boolean {
         with(NavBarMatchers) {
             return profileButton.isViewDisplayed()

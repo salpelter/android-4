@@ -71,6 +71,7 @@ fun Matcher<View>.waitForViewVisible(timeOutIfNotExitInSec: Int) {
     waitForView(this, timeOutIfNotExitInSec * 1000)
 }
 
+// this was empty in the original repo so i added a simple implementation
 fun waitForView(viewMatcher: Matcher<View>, timeoutMs: Int) {
     val startTime = System.currentTimeMillis()
     val endTime = startTime + timeoutMs

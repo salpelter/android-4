@@ -12,35 +12,34 @@ import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.anyOf
 
+private val actualScope: Matcher<View> = isLastChildOf(withId(R.id.fragmentContainerView))
 private val changePasswordScope: Matcher<View> = hasDescendant(withId(R.id.passwordInput))
 private val changeLanguageScope: Matcher<View> = hasDescendant(anyOf(
     withId(R.id.languageButtonEng),
     withId(R.id.languageButtonGeo)))
 
-private val topFragmentScope: Matcher<View> = isLastChildOf(withId(R.id.fragmentContainerView))
-
 object ProfilePageMatchers {
     val signOutButton: Matcher<View> by lazy { allOf(
         withId(R.id.signOutItem),
-        isDescendantOfA(topFragmentScope),
+        isDescendantOfA(actualScope),
         isDisplayed())
     }
 
     val userImage: Matcher<View> by lazy { allOf(
             withId(R.id.userImageView),
-            isDescendantOfA(topFragmentScope),
+            isDescendantOfA(actualScope),
             isDisplayed())
     }
 
     val changePasswordButton: Matcher<View> by lazy { allOf(
         withId(R.id.changePasswordItem),
-        isDescendantOfA(topFragmentScope),
+        isDescendantOfA(actualScope),
         isDisplayed())
     }
 
     val changeLanguageButton: Matcher<View> by lazy { allOf(
         withId(R.id.changeLanguageItem),
-        isDescendantOfA(topFragmentScope),
+        isDescendantOfA(actualScope),
         isDisplayed())
     }
 
@@ -85,7 +84,7 @@ object ProfilePageMatchers {
 
     val profileUserName: Matcher<View> by lazy { allOf(
         withId(R.id.userNameTextView),
-        isDescendantOfA(topFragmentScope),
+        isDescendantOfA(actualScope),
         isDisplayed())
     }
 }

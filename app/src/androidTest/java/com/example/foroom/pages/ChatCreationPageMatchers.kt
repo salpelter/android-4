@@ -10,18 +10,18 @@ import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
 
 private val actualScope: Matcher<View> = isLastChildOf(withId(R.id.fragmentContainerView))
-private val navBarScope: Matcher<View> = allOf(withId(R.id.navBar), isDescendantOfA(actualScope))
 
-object NavBarMatchers {
-    val profileButton: Matcher<View> by lazy { allOf(
-            withId(R.id.homeNavigationProfile),
-            isDescendantOfA(navBarScope),
-            isDisplayed())
+object ChatCreationPageMatchers {
+    val chatNameField: Matcher<View> by lazy { allOf(
+        withId(com.example.design_system.R.id.inputEditText),
+        isDescendantOfA(actualScope),
+        isDescendantOfA(withId(R.id.chatNameInput)),
+        isDisplayed())
     }
 
     val createChatButton: Matcher<View> by lazy { allOf(
-        withId(R.id.homeNavigationCreateChat),
-        isDescendantOfA(navBarScope),
+        withId(R.id.createChatButton),
+        isDescendantOfA(actualScope),
         isDisplayed())
     }
 }

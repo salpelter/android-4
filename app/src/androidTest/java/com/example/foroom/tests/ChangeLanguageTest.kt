@@ -1,7 +1,6 @@
 package com.example.foroom.tests
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.foroom.data.Constants.PASSWORD
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -12,7 +11,7 @@ class ChangeLanguageTest : BaseTest() {
         // log in
         loginSteps
             .enterUserName(username)
-            .enterPassword(PASSWORD)
+            .enterPassword(password)
 
         commonSteps
             .closeKeyboard()
@@ -20,10 +19,11 @@ class ChangeLanguageTest : BaseTest() {
         loginSteps
             .tapOnLoginButton()
 
-        // change language to english
+        // go to profile page
         navBarSteps
             .tapOnProfileButton()
 
+        // change language to english
         profileSteps
             .tapOnChangeLanguageButton()
             .tapOnEnglishLanguageButton()

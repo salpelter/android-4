@@ -6,9 +6,9 @@ import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
 
-// i have been trying for 3 days to make the password change test work
-// i don't know how exactly but finally it's somehow working
-// so i'll just leave everything as is and not touch it anymore
+// i have been trying to solve the page stacking/duplication
+// issue for 3 days and this is the only thing i found that
+// seems to work. i'm not 100% sure why but at least it works
 fun isLastChildOf(parentMatcher: Matcher<View>): Matcher<View> {
     return object : TypeSafeMatcher<View>() {
         override fun describeTo(description: Description) {
