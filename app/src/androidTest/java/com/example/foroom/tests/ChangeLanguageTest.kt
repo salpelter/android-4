@@ -8,16 +8,7 @@ import org.junit.runner.RunWith
 class ChangeLanguageTest : BaseTest() {
     @Test
     fun changeLanguageScenario() {
-        // log in
-        loginSteps
-            .enterUserName(username)
-            .enterPassword(password)
-
-        commonSteps
-            .closeKeyboard()
-
-        loginSteps
-            .tapOnLoginButton()
+        logIn(username, password)
 
         // go to profile page
         navBarSteps

@@ -47,7 +47,7 @@ class ChatSteps {
     // okay i know this is very complicated but at least it works
     // i tried other methods of checking the latest message but
     // this one is just the most consistent
-    fun verifyMessageSentSuccessfully(author: String, expectedMessage: String): ChatSteps {
+    fun verifyMessageContentByAuthor(author: String, expectedMessage: String): ChatSteps {
         onView(withId(R.id.messagesRecyclerView)).check { view, _ ->
             val recyclerView = view as RecyclerView
             Assert.assertTrue("No messages available", (recyclerView.adapter?.itemCount ?: 0) > 0)

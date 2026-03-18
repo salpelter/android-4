@@ -12,6 +12,7 @@ import com.example.foroom.data.DataGenerator
 import com.example.foroom.steps.ChatSteps
 import com.example.foroom.steps.MainSteps
 import com.example.foroom.utils.getText
+import com.example.foroom.utils.staticWait
 import org.junit.Before
 import org.junit.Rule
 
@@ -48,10 +49,15 @@ open class BaseTest {
                 .tapOnSignOutButton()
         }
 
+        registerWithRandomCredentials()
+        signOut()
+    }
+
+    // methods to reduce code duplication
+    fun registerWithRandomCredentials() {
         username = "Daniel_" + DataGenerator.getRandomString()
         password = DataGenerator.getRandomPassword()
 
-        // register
         loginSteps
             .tapOnRegistrationButton()
 
@@ -65,12 +71,25 @@ open class BaseTest {
 
         registrationSteps
             .tapOnRegistrationButton()
+    }
 
-        // log out to go back to initial state
+    fun signOut() {
         navBarSteps
             .tapOnProfileButton()
 
         profileSteps
             .tapOnSignOutButton()
+    }
+
+    fun logIn(userName: String, password: String) {
+        loginSteps
+            .enterUserName(userName)
+            .enterPassword(password)
+
+        commonSteps
+            .closeKeyboard()
+
+        loginSteps
+            .tapOnLoginButton()
     }
 }

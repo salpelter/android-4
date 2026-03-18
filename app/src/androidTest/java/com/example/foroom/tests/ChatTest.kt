@@ -9,16 +9,7 @@ import org.junit.runner.RunWith
 class ChatTest : BaseTest() {
     @Test
     fun chatScenario() {
-        // log in
-        loginSteps
-            .enterUserName(username)
-            .enterPassword(password)
-
-        commonSteps
-            .closeKeyboard()
-
-        loginSteps
-            .tapOnLoginButton()
+        logIn(username, password)
 
         // create chat
         val chatName = "Daniel Asaturov"

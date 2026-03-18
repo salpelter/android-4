@@ -9,16 +9,7 @@ import org.junit.runner.RunWith
 class ChangePasswordTest : BaseTest() {
     @Test
     fun changePasswordScenario() {
-        // log in
-        loginSteps
-            .enterUserName(username)
-            .enterPassword(password)
-
-        commonSteps
-            .closeKeyboard()
-
-        loginSteps
-            .tapOnLoginButton()
+        logIn(username, password)
 
         // go to profile page
         navBarSteps

@@ -13,16 +13,7 @@ import org.junit.runner.RunWith
 class JohnWeekMessage2Test : BaseTest() {
     @Test
     fun chatMessageScenario() {
-        // log in
-        loginSteps
-            .enterUserName(username)
-            .enterPassword(password)
-
-        commonSteps
-            .closeKeyboard()
-
-        loginSteps
-            .tapOnLoginButton()
+        logIn(username, password)
 
         // find chat
         mainSteps
@@ -35,6 +26,7 @@ class JohnWeekMessage2Test : BaseTest() {
             .searchForChat(JOHN_WICK_CHAT_NAME)
             .tapOnChatMessageButton(JOHN_WICK_CHAT_NAME)
 
+        // send and verify message content
         val message = "which module you like the most in the Automation Academy?"
 
         chatSteps
@@ -42,11 +34,10 @@ class JohnWeekMessage2Test : BaseTest() {
             .enterMessage(message)
             .tapOnSendMessageButton()
 
-
         commonSteps
             .closeKeyboard()
 
         chatSteps
-            .verifyMessageSentSuccessfully(username, message)
+            .verifyMessageContentByAuthor(username, message)
     }
 }
