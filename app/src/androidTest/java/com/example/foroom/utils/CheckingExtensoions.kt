@@ -1,7 +1,8 @@
-package com.example.foroom.Helper
+package com.example.foroom.utils
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import androidx.test.espresso.AmbiguousViewMatcherException
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
@@ -52,13 +53,22 @@ fun Matcher<View>.isViewClickable(viewIndex: Int = 0): Boolean {
  * View is visible? return Boolean
  */
 fun Matcher<View>.isViewDisplayed(): Boolean {
-
     return try {
-        waitForViewVisible(3)
         onView(this).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         true
-    } catch (_: Exception) {
-        false
+    } catch (e: AmbiguousViewMatcherException) {
+        true
+    } catch (e: Exception) {
+        // not found yet
+        try {
+            waitForViewVisible(4)
+            onView(this).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+            true
+        } catch (e2: AmbiguousViewMatcherException) {
+            true
+        } catch (e2: Exception) {
+            false
+        }
     }
 }
 

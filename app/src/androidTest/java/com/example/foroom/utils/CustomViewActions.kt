@@ -1,10 +1,11 @@
-package com.example.foroom.Helper
+package com.example.foroom.utils
 
 import android.app.Instrumentation
 import android.graphics.drawable.ColorDrawable
 import android.os.SystemClock
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import android.widget.EditText
 import android.widget.RadioButton
@@ -22,7 +23,6 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.espresso.util.HumanReadables
 import androidx.test.espresso.util.TreeIterables
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
-import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.collect.Iterables
 import org.hamcrest.*
 import org.hamcrest.Matchers.anyOf
 import java.util.concurrent.TimeoutException
@@ -69,11 +69,22 @@ fun Matcher<View>.typeText(text: String, timeOutIfNotExitInSec: Int = 3) {
  * Input Text on view
  */
 fun Matcher<View>.waitForViewVisible(timeOutIfNotExitInSec: Int) {
-    waitForView(first(this), timeOutIfNotExitInSec * 1000)
+    waitForView(this, timeOutIfNotExitInSec * 1000)
 }
 
-fun waitForView(first: Matcher<View>, i: Int) {
-
+// this was empty in the original repo so i added a simple implementation
+fun waitForView(viewMatcher: Matcher<View>, timeoutMs: Int) {
+    val startTime = System.currentTimeMillis()
+    val endTime = startTime + timeoutMs
+    do {
+        try {
+            onView(viewMatcher).check(matches(isDisplayed()))
+            return
+        } catch (_: Exception) {
+            Thread.sleep(50)
+        }
+    } while (System.currentTimeMillis() < endTime)
+    throw TimeoutException("View not visible after ${timeoutMs}ms: $viewMatcher")
 }
 
 fun Matcher<View>.waitUntilInvisible(sec: Int): ViewAction {
@@ -112,7 +123,7 @@ fun Matcher<View>.waitUntilInvisible(sec: Int): ViewAction {
 /**
  * Get Text from view with ViewMatcher
  */
-fun Matcher<View>.getText(timeOutIfNotExitInSec: Int = 3): String {
+fun Matcher<View>.getText(timeOutIfNotExitInSec: Int = 5): String {
     var text = String()
     waitForViewVisible(timeOutIfNotExitInSec)
     onView(first(this)).perform(object : ViewAction {
@@ -457,8 +468,10 @@ fun <T> byViewPosition(matcher: Matcher<T>, itemPosition: Int): Matcher<T> {
 }
 
 fun withIndex(matcher: Matcher<View>, index: Int): Matcher<View> {
+    // counting calls instead of distinct views
     return object : TypeSafeMatcher<View>() {
-        var currentIndex = 0
+        val matchedViews = mutableSetOf<Int>()
+
         override fun describeTo(description: Description) {
             description.appendText("with index: ")
             description.appendValue(index)
@@ -466,9 +479,29 @@ fun withIndex(matcher: Matcher<View>, index: Int): Matcher<View> {
         }
 
         override fun matchesSafely(view: View): Boolean {
-            return matcher.matches(view) && currentIndex++ == index
+            if (!matcher.matches(view)) return false
+            matchedViews.add(System.identityHashCode(view))
+            return matchedViews.indexOf(System.identityHashCode(view)) == index
         }
     }
+}
+
+fun countViews(matcher: Matcher<View>): Int {
+    var count = 0
+    onView(isRoot()).check { view, _ ->
+        if (view is ViewGroup) {
+            val queue = ArrayDeque<View>()
+            queue.add(view)
+            while (queue.isNotEmpty()) {
+                val current = queue.removeFirst()
+                if (matcher.matches(current)) count++
+                if (current is ViewGroup) {
+                    for (i in 0 until current.childCount) queue.add(current.getChildAt(i))
+                }
+            }
+        }
+    }
+    return count
 }
 
 fun swipeLeftSlowly(): ViewAction {
